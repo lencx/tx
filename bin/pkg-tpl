@@ -1,0 +1,105 @@
+#!/usr/bin/env node
+
+const decamelize = require('decamelize');
+// const moment = require('moment');
+
+// moment.locale();
+
+const indexTpl = `
+`;
+
+// const changelogTpl = `## 0.0.1 (${moment().format('ll')})
+// `;
+const changelogTpl = ``;
+
+const packageTpl = pkgName => `{
+  "name": "@l8n/${decamelize(pkgName, '-')}",
+  "version": "0.0.1",
+  "description": "",
+  "main": "lib/index",
+  "module": "esm/index.js",
+  "types": "esm/index.d.ts",
+  "author": "lencx",
+  "license": "MIT",
+  "homepage": "https://github.com/lencx/nx#readme",
+  "scripts": {
+    "build:cjs": "tsc",
+    "build:esm": "tsc -m esNext --outDir esm",
+    "build": "yarn build:cjs && yarn build:esm",
+    "watch": "tsc --watch"
+  },
+  "files": [
+    "lib/",
+    "esm/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lencx/nx.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "${pkgName}"
+  ],
+  "bugs": {
+    "url": "https://github.com/lencx/nx/issues"
+  }
+}
+`;
+
+const readmeTpl = pkgName => `# ${pkgName}
+`;
+
+const tsconfigTpl = `{
+  "extends": "../../tsconfig.base.json",
+  "include": ["src/**/*"],
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src"
+  }
+}
+`;
+
+const gitignore = `# macOS
+.DS_Store
+
+# node.js
+node_modules
+package-lock.json
+yarn.lock
+
+# IDE
+.idea
+.vscode
+
+# log
+*.log
+
+# build
+/lib
+/esm
+`;
+
+module.exports = pkgName => {
+  const pkgBasePath = `./packages/${pkgName}`;
+  return [{
+    filename: `${pkgBasePath}/src/index.ts`,
+    template: indexTpl,
+  }, {
+    filename: `${pkgBasePath}/README.md`,
+    template: readmeTpl(pkgName),
+  }, {
+    filename: `${pkgBasePath}/CHANGELOG.md`,
+    template: changelogTpl,
+  }, {
+    filename: `${pkgBasePath}/package.json`,
+    template: packageTpl(pkgName),
+  }, {
+    filename: `${pkgBasePath}/tsconfig.json`,
+    template: tsconfigTpl,
+  }, {
+    filename: `${pkgBasePath}/.gitignore`,
+    template: gitignore,
+  }]
+}

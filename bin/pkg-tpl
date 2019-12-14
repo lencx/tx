@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-
 const decamelize = require('decamelize');
 // const moment = require('moment');
+const repo = 'tx';
 
 // moment.locale();
 
@@ -21,7 +21,7 @@ const packageTpl = pkgName => `{
   "types": "esm/index.d.ts",
   "author": "lencx",
   "license": "MIT",
-  "homepage": "https://github.com/lencx/nx#readme",
+  "homepage": "https://github.com/lencx/${repo}#readme",
   "scripts": {
     "build:cjs": "tsc",
     "build:esm": "tsc -m esNext --outDir esm",
@@ -34,7 +34,7 @@ const packageTpl = pkgName => `{
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/lencx/nx.git"
+    "url": "https://github.com/lencx/${repo}.git"
   },
   "publishConfig": {
     "access": "public"
@@ -43,7 +43,7 @@ const packageTpl = pkgName => `{
     "${pkgName}"
   ],
   "bugs": {
-    "url": "https://github.com/lencx/nx/issues"
+    "url": "https://github.com/lencx/${repo}/issues"
   }
 }
 `;

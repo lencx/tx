@@ -1,4 +1,8 @@
-# TX
+<p align="center">
+  <img width="100" src="./tx.svg" />
+  <a href="https://lencx.github.io/nx">
+  </a>
+</p>
 
 ```bash
 # create package
@@ -24,12 +28,6 @@ yarn clean # package/{lib,esm} & storybook-static
 
 # install package dependencies
 yarn bootstrap
-
-# deploy storybook to gh-pages
-yarn deploy
-
-# run storybook
-yarn storybook
 ```
 
 ## Packages
